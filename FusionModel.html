@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>STL Viewer</title>
+    <style>
+        body { margin: 0; }
+    </style>
+</head>
+<body>
+    <script src="three.js"></script>
+    <script src="STLLoader.js"></script>
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        const loader = new THREE.STLLoader();
+        loader.load('/Users/skull/WebstormProjects/Portfolio/Flower Vase v2.stl', function (geometry) {
+            const material = new THREE.MeshPhongMaterial({ color: 0xffffff });
+            const mesh = new THREE.Mesh(geometry, material);
+            scene.add(mesh);
+        });
+
+        camera.position.z = 50;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+</html>
